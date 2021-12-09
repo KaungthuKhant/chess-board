@@ -43,12 +43,12 @@ public class chess{
 
         while(winner == ""){
             if (turn == 1){
-                chosenMove = promptUser("white", input);
+                chosenMove = promptUser("white");
                 String[] pieces = assignPiece(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board);
             }
             else{
-                chosenMove = promptUser("black", input);
+                chosenMove = promptUser("black");
                 String[] pieces = assignPiece(chosenMove, board);
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board);
             }
@@ -87,20 +87,21 @@ public class chess{
 
 
     // a funciton to prompt the use what they want to see
-    public static String[] promptUser(String turn, Scanner input){
-        //Scanner input = new Scanner(System.in);
+    public static String[] promptUser(String turn){
+        Scanner scn = new Scanner(System.in);
         System.out.println("It is "+ turn + "'s turn.");
         System.out.println("Please put in the current position and next position that you want to move");
         System.out.println("Current Position: ");
-        String currPst = input.nextLine();
+        String currPst = scn.nextLine();
         //while (input.hasNextLine()){
         //    currPst = input.nextLine();
         //}
         System.out.println("Next Position: ");
-        String nextPst = input.nextLine();
+        String nextPst = scn.nextLine();
         String[] chosenMove= {currPst, nextPst};
-        input.close();
+        scn.close();
         return chosenMove;
+        scn.close();
     }
 
 
