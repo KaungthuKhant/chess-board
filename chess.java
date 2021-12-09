@@ -9,7 +9,7 @@ public class chess{
         // variables
         String winner = "";                     // store the color of winner, "" when game start
         String[] players = {"white", "black"}; // might not need this
-        String[] chosenMove;
+        String[] chosenMove = {"", ""};
         int turn = 1;
 
         // mthods
@@ -39,16 +39,32 @@ public class chess{
             {"%%", "  ", "%%", "  ", "%%", "  ", "%%", "  "},
             {"wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"},
             {"wC", "wN", "wB", "wQ", "wK", "wB", "wN", "wC"}
-        };
+        }; 
+
+        boolean test = true;
 
         while(winner == ""){
+            Scanner scan = new Scanner(System.in);
+
             if (turn == 1){
-                chosenMove = promptUser("white");
+                System.out.println("It is white's turn.");
+                System.out.println("Enter your current piece: ");
+                String curPiece = scan.nextLine();
+                System.out.println("Enter your next move: ");
+                String nextMove = scan.nextLine();
+                chosenMove[0] = curPiece;
+                chosenMove[1] = nextMove;
                 String[] pieces = assignPiece(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board);
             }
             else{
-                chosenMove = promptUser("black");
+                System.out.println("It is black's turn.");
+                System.out.println("Enter your current piece: ");
+                String curPiece = scan.nextLine();
+                System.out.println("Enter your next move: ");
+                String nextMove = scan.nextLine();
+                chosenMove[0] = curPiece;
+                chosenMove[1] = nextMove;
                 String[] pieces = assignPiece(chosenMove, board);
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board);
             }
