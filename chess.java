@@ -88,16 +88,28 @@ public class chess{
 
     // a funciton to prompt the use what they want to see
     public static String[] promptUser(String turn){
+        String currPst = "";
+        String nextPst = "";
         Scanner scn = new Scanner(System.in);
         System.out.println("It is "+ turn + "'s turn.");
         System.out.println("Please put in the current position and next position that you want to move");
         System.out.println("Current Position: ");
-        String currPst = scn.nextLine();
-        //while (input.hasNextLine()){
-        //    currPst = input.nextLine();
-        //}
+        if (scn.hasNextLine()){
+            currPst = scn.nextLine();
+        }
         System.out.println("Next Position: ");
-        String nextPst = scn.nextLine();
+        if (scn.hasNextLine()){
+            nextPst = scn.nextLine();
+        }
+        
+        /*
+        while (scn.hasNextLine()){
+            currPst = scn.nextLine();
+        }
+        System.out.println("Next Position: ");
+        while (scn.hasNextLine()){
+            nextPst = scn.nextLine();
+        }*/
         String[] chosenMove= {currPst, nextPst};
         scn.close();
         return chosenMove;
