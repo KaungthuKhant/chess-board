@@ -101,7 +101,6 @@ public class chess{
         String[] chosenMove= {currPst, nextPst};
         scn.close();
         return chosenMove;
-        scn.close();
     }
 
 
