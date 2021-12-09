@@ -16,7 +16,6 @@ public class chess{
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to this humble game of Chess!");
 
-
         String[] ColumnIndex = {"a", "b", "c", "d", "e", "f", "g", "h"};
         String[] rowIndex = {"8", "7", "6", "5", "4", "3", "2", "1"};
 
