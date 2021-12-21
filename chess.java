@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class chess{
     // public String[][] board;
+
+    // INSTEAD OF STRING, CHAR MIGHT SAVE ME SOME TROUBLE
+    public static ArrayList<String> rowIndexes = new ArrayList<String>();
+    public static ArrayList<String> ColumnIndexes = new ArrayList<String>();
     public static void main(String[] args){
 
         // variables
@@ -17,7 +21,7 @@ public class chess{
         System.out.println("Welcome to this humble game of Chess!");
 
         String[] ColumnIndex = {"a", "b", "c", "d", "e", "f", "g", "h"};
-        String[] rowIndex = {"8", "7", "6", "5", "4", "3", "2", "1"};
+        String[] rowIndexes = {"8", "7", "6", "5", "4", "3", "2", "1"};
 
         String[][] emptyBoard = {
             {"  ", "%%", "  ", "%%", "  ", "%%", "  ", "%%"},
@@ -31,14 +35,15 @@ public class chess{
         };
 
         String[][] board = {
-            {"bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"},
-            {"bC", "bN", "bB", "bQ", "bK", "bB", "bN", "bC"},
-            {"  ", "%%", "  ", "%%", "  ", "%%", "  ", "%%"},
-            {"%%", "  ", "%%", "  ", "%%", "  ", "%%", "  "},
-            {"  ", "%%", "  ", "%%", "  ", "%%", "  ", "%%"},
-            {"%%", "  ", "%%", "  ", "%%", "  ", "%%", "  "},
-            {"wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"},
-            {"wC", "wN", "wB", "wQ", "wK", "wB", "wN", "wC"}
+            {"bC", "bN", "bB", "bQ", "bK", "bB", "bN", "bC", "8"},
+            {"bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP", "7"},
+            {"  ", "%%", "  ", "%%", "  ", "%%", "  ", "%%", "6"},
+            {"%%", "  ", "%%", "  ", "%%", "  ", "%%", "  ", "5"},
+            {"  ", "%%", "  ", "%%", "  ", "%%", "  ", "%%", "4"},
+            {"%%", "  ", "%%", "  ", "%%", "  ", "%%", "  ", "3"},
+            {"wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP", "2"},
+            {"wC", "wN", "wB", "wQ", "wK", "wB", "wN", "wC", "1"}, 
+            {"a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" }
         }; 
 
         boolean test = true;
@@ -49,27 +54,27 @@ public class chess{
             if (turn == 1){
                 System.out.println("It is white's turn.");
                 System.out.println("Enter your current piece: ");
-                String curPiece = scan.nextLine();
+                String currentPosition = scan.nextLine();
                 System.out.println("Enter your next move: ");
-                String nextMove = scan.nextLine();
-                chosenMove[0] = curPiece;
-                chosenMove[1] = nextMove;
+                String nextPosition = scan.nextLine();
+                chosenMove[0] = currentPosition;
+                chosenMove[1] = nextPosition;
                 String[] pieces = assignPiece(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board);
             }
             else{
                 System.out.println("It is black's turn.");
                 System.out.println("Enter your current piece: ");
-                String curPiece = scan.nextLine();
+                String currentPosition = scan.nextLine();
                 System.out.println("Enter your next move: ");
-                String nextMove = scan.nextLine();
-                chosenMove[0] = curPiece;
-                chosenMove[1] = nextMove;
+                String nextPosition = scan.nextLine();
+                chosenMove[0] = currentPosition;
+                chosenMove[1] = nextPosition;
                 String[] pieces = assignPiece(chosenMove, board);
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board);
             }
 
-            movePieces();
+            //movePieces(moves);
             
             turn = turn * (-1);
         }
@@ -87,12 +92,12 @@ public class chess{
         // ask for position and check if there is a piece there, else ask for position again        done
         // check whether the position chosen is owned by white or black (the current player)   wK for white king and bK for black king
 
-        // check if next position is valid move for chosen piece by calling the following function
+        // check if next position is valid move for chosen piece by calling the following funextColumntion
 
         // checkPositionValidity(String curPos, String nextPos) { if nextPos == "  " || nextPos == "%%"} 
-        // every piece will have a function that will check if a move is valid based on the current position and 
+        // every piece will have a funextColumntion that will check if a move is valid based on the current position and 
         // chosen position, is the piece allowed to move to the next position with it's properties and they way it moves
-        // (inside this function, it will call another function in the beginning that check if
+        // (inside this funextColumntion, it will call another funextColumntion in the beginning that check if
         // the future position is occupied by a piece of the same color)
 
         // move the piece to that position and check the following requirements
@@ -102,7 +107,7 @@ public class chess{
     }
 
 
-    // a funciton to prompt the use what they want to see
+    // a funextColumniton to prompt the use what they want to see
     public static String[] promptUser(String turn){
         String currPst = "";
         String nextPst = "";
@@ -136,8 +141,35 @@ public class chess{
         // variables
         // check if it is the same color as player
         System.out.println("color "+ pieces[0].charAt(0));
+
+        // user can only move their piece
         if (!(pieces[0].charAt(0) == color)){
+            System.out.println("This is not your piece");
             return false;
+        }
+
+        // if destination is occupied by another piece of yours, you cannot move them
+        if (pieces[1].charAt(0) == color){
+            System.out.println("Cannot move: There is another piece of yours on the spot that you want to move");
+            return false;
+        }
+
+        // other wise, check the path, for the ones that need to check (queen, bishop, castle, 
+        // pawn(exception because they move twice in the first round and there could be sth between the move in later game))
+
+        // pieces that does not need to check, king and knight (they only need to check the destination)
+
+        else{
+            //check if the move is a vlid move
+            if (pieces[0].charAt(1) == 'P'){
+                System.out.println("It is a pawn that you are moving");
+                Boolean piecesMoveable = checkPawnMove(moves, board);
+                if (piecesMoveable){
+                    System.out.print("Paw is moveable and it is moving now");
+                    movePieces(moves);
+                }
+            }
+            // make sure there is nothing on the path of moving piece
         }
         // check if the move is the right movement for that piece
             // if so, check if there is a piece
@@ -147,37 +179,93 @@ public class chess{
         return true;
     }
 
-    public static void movePieces(){
+    public static boolean checkPawnMove(String[] moves, String[][] board){
+        System.out.println("Pawn move is checking");
+        // check if they are in their original destination by checking the number
+        char columnAlphabet = moves[0].charAt(0);  // contains the alphabet of the chosen move
+        String colAlpha = String.valueOf(columnAlphabet); 
+        int indexOfColumn = ColumnIndexes.indexOf(colAlpha);
+        System.out.println("The index of the Column: "+ indexOfColumn);
+        if (moves[0].charAt(1) == '2' && moves[1].charAt(1) == '4'){
+            System.out.println("the location in between has: " + board[5][indexOfColumn]);
+            if (board[5][indexOfColumn] == "  " || board[5][indexOfColumn] == "%%"){
+                System.out.println("It's a free place");
+                return true;
+            }
+            // String colAlpha = String.valueOf(columnAlphabet); 
+            //int boardColumn = board[8].indexOf(colAlpha);
+            //if ()
+        }
+        else if (moves[0].charAt(1) == '7' && moves[1].charAt(1) == '5'){
+            System.out.println("the location in between has: " + board[2][indexOfColumn]);
+            if (board[2][indexOfColumn] == "  " || board[2][indexOfColumn] == "%%"){
+                System.out.println("It's a free place");
+                return true;
+            }
+        }
+        else{
+            // make sure they are only moving once at a time
+            // also make sure, they are not jumping out of the board (ie: don't let them exceed the board number)
+            int num = Integer.parseInt("1");
+            int currentPosRowNum = moves[0].charAt(1);
+            int nextPosRowNum = moves[1].charAt(1);
+            //int currentPosRowNum = Integer.parseInt(moves[0].charAt(1));
+            //int nextPosRowNum = Integer.parseInt(moves[1].charAt(1));
+            int moveNumDifference = currentPosRowNum - nextPosRowNum;
+            if (moveNumDifference == 1 && nextPosRowNum >=0 && nextPosRowNum < 8){
+                return true;
+            }
+            else{
+                return false;
+            }
+            // if they are only move one move, then check if there is a move from that person's side
+        }
+        return false;
+    }
+
+    public static void movePieces(String[] moves){
         System.out.println("pieces have been moved");
     }
 
     public static String[] assignPiece(String[] move, String[][] board){
-        ArrayList<String> rowIndex = new ArrayList<String>();
-        rowIndex.add("8");
-        rowIndex.add("7");
-        rowIndex.add("6");
-        rowIndex.add("5");
-        rowIndex.add("4");
-        rowIndex.add("3");
-        rowIndex.add("2");
-        rowIndex.add("1");
-        ArrayList<String> columnIndex = new ArrayList<String>();
-        columnIndex.add("a");
-        columnIndex.add("b");
-        columnIndex.add("c");
-        columnIndex.add("d");
-        columnIndex.add("e");
-        columnIndex.add("f");
-        columnIndex.add("g");
-        columnIndex.add("h");
+        rowIndexes.add("8");
+        rowIndexes.add("7");
+        rowIndexes.add("6");
+        rowIndexes.add("5");
+        rowIndexes.add("4");
+        rowIndexes.add("3");
+        rowIndexes.add("2");
+        rowIndexes.add("1");
+        ColumnIndexes.add("a");
+        ColumnIndexes.add("b");
+        ColumnIndexes.add("c");
+        ColumnIndexes.add("d");
+        ColumnIndexes.add("e");
+        ColumnIndexes.add("f");
+        ColumnIndexes.add("g");
+        ColumnIndexes.add("h");
+        //8
+        //7
+        //6
+        //5
+        //4
+        //3
+        //2
+        //1
+        //  a, b, c, d, e, f, g, h
 
-        String cr = String.valueOf(move[0].charAt(1));    // cr for current row
-        String cc = String.valueOf(move[0].charAt(0));   // cc for current column
-        String nr = String.valueOf(move[1].charAt(1));    // nr next row
-        String nc = String.valueOf(move[1].charAt(0));     // nc next column
-
-        int[] moveIndex = {rowIndex.indexOf(cr), columnIndex.indexOf(cc), rowIndex.indexOf(nr), columnIndex.indexOf(nc)};
-        String[] pieces = {board[moveIndex[0]][moveIndex[1]], board[moveIndex[0]][moveIndex[1]]};
+        String currentRow = String.valueOf(move[0].charAt(1));    // currentRow for current row
+        String currentColumn = String.valueOf(move[0].charAt(0));   // currentColumn for current column
+        String nextRow = String.valueOf(move[1].charAt(1));    // nextRow next row
+        String nextColumn = String.valueOf(move[1].charAt(0));     // nextColumn next column
+        System.out.println(currentRow);
+        System.out.println(currentColumn);
+        System.out.println(nextRow);
+        System.out.println(nextColumn);
+        int[] moveIndex = {rowIndexes.indexOf(currentRow), ColumnIndexes.indexOf(currentColumn), rowIndexes.indexOf(nextRow), ColumnIndexes.indexOf(nextColumn)};
+        String[] pieces = {board[moveIndex[0]][moveIndex[1]], board[moveIndex[2]][moveIndex[3]]};
+        System.out.println(pieces[0]);
+        System.out.println(pieces[1]);
         return pieces;
     }
 
