@@ -169,6 +169,10 @@ public class chess{
                     movePieces(moves);
                 }
             }
+
+            else if(pieces[0].charAt(1)) == "C"{
+
+            }
             // make sure there is nothing on the path of moving piece
         }
         // check if the move is the right movement for that piece
@@ -209,10 +213,11 @@ public class chess{
             int num = Integer.parseInt("1");
             int currentPosRowNum = moves[0].charAt(1);
             int nextPosRowNum = moves[1].charAt(1);
-            //int currentPosRowNum = Integer.parseInt(moves[0].charAt(1));
-            //int nextPosRowNum = Integer.parseInt(moves[1].charAt(1));
+            String nestPosColAlphabet = String.valueOf(moves[1].charAt(0));
             int moveNumDifference = currentPosRowNum - nextPosRowNum;
             if (moveNumDifference == 1 && nextPosRowNum >=0 && nextPosRowNum < 8){
+                // check the next place is not occupied by the same color
+                if ()
                 return true;
             }
             else{
