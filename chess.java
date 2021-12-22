@@ -19,6 +19,7 @@ public class chess{
         // mthods
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to this humble game of Chess!");
+        System.out.println(" ");
 
         String[] ColumnIndex = {"a", "b", "c", "d", "e", "f", "g", "h"};
         String[] rowIndexes = {"8", "7", "6", "5", "4", "3", "2", "1"};
@@ -46,12 +47,24 @@ public class chess{
             {"a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" }
         }; 
 
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 9; j++){
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println("");
+        }
+        for (int k = 0; k < 8; k++){
+            System.out.print(board[8][k] + "  ");
+        }
+        System.out.println(" ");
+
         boolean test = true;
 
         while(winner == ""){
             Scanner scan = new Scanner(System.in);
 
             if (turn == 1){
+                System.out.println(" ");
                 System.out.println("It is white's turn.");
                 System.out.println("Enter your current piece: ");
                 String currentPosition = scan.nextLine();
@@ -63,6 +76,7 @@ public class chess{
                 Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board);
             }
             else{
+                System.out.println(" ");
                 System.out.println("It is black's turn.");
                 System.out.println("Enter your current piece: ");
                 String currentPosition = scan.nextLine();
@@ -136,7 +150,6 @@ public class chess{
         return chosenMove;
     }
 
-
     public static boolean checkMoveValidity (String[] moves, String[] pieces, char color, String[][] board){
         // variables
         // check if it is the same color as player
@@ -161,6 +174,10 @@ public class chess{
 
         else{
             //check if the move is a vlid move
+            if (pieces[1].charAt(0) == 'w'){
+                System.out.println("You have your own piece at the next position that you want to move");
+                return false;
+            }
             if (pieces[0].charAt(1) == 'P'){
                 System.out.println("It is a pawn that you are moving");
                 Boolean piecesMoveable = checkPawnMove(moves, board);
@@ -170,9 +187,7 @@ public class chess{
                 }
             }
 
-            else if(pieces[0].charAt(1)) == "C"{
-
-            }
+            
             // make sure there is nothing on the path of moving piece
         }
         // check if the move is the right movement for that piece
@@ -213,11 +228,9 @@ public class chess{
             int num = Integer.parseInt("1");
             int currentPosRowNum = moves[0].charAt(1);
             int nextPosRowNum = moves[1].charAt(1);
-            String nestPosColAlphabet = String.valueOf(moves[1].charAt(0));
+
             int moveNumDifference = currentPosRowNum - nextPosRowNum;
             if (moveNumDifference == 1 && nextPosRowNum >=0 && nextPosRowNum < 8){
-                // check the next place is not occupied by the same color
-                if ()
                 return true;
             }
             else{
