@@ -183,7 +183,7 @@ public class chess{
                 Boolean piecesMoveable = checkPawnMove(moves, board);
                 if (piecesMoveable){
                     System.out.print("Paw is moveable and it is moving now");
-                    movePieces(moves);
+                    //movePieces(moves);
                 }
             }
 
@@ -241,7 +241,7 @@ public class chess{
         return false;
     }
 
-    public static void movePieces(String[] moves){
+    public static void movePieces(Integer[] moves, String[][] board, String[][] emptyBoard){
         // get the position and move the one
         // need empty board, current board and move indexes
         System.out.println("pieces have been moved");
