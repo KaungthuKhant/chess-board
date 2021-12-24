@@ -242,6 +242,8 @@ public class chess{
     }
 
     public static void movePieces(String[] moves){
+        // get the position and move the one
+        // need empty board, current board and move indexes
         System.out.println("pieces have been moved");
     }
 
