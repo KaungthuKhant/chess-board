@@ -271,7 +271,6 @@ public class chess{
         //2
         //1
         //  a, b, c, d, e, f, g, h
-
         String currentRow = String.valueOf(move[0].charAt(1));    // currentRow for current row
         String currentColumn = String.valueOf(move[0].charAt(0));   // currentColumn for current column
         String nextRow = String.valueOf(move[1].charAt(1));    // nextRow next row
