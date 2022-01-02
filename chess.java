@@ -242,8 +242,10 @@ public class chess{
             int currentPosRowNum = moves[0].charAt(1);
             int nextPosRowNum = moves[1].charAt(1);
 
-            int moveNumDifference = currentPosRowNum - nextPosRowNum;
+            int moveNumDifference = nextPosRowNum - currentPosRowNum;
+            System.out.println("move number difference: "+ moveNumDifference);
             if (moveNumDifference == 1 && nextPosRowNum >=0 && nextPosRowNum < 8){
+                System.out.println("Pawn is moving one move forward");
                 return true;
             }
             else{
