@@ -47,16 +47,7 @@ public class chess{
             {"a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" }
         }; 
 
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 9; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println("");
-        }
-        for (int k = 0; k < 8; k++){
-            System.out.print(board[8][k] + "  ");
-        }
-        System.out.println(" ");
+        
 
         boolean test = true;
 
@@ -64,6 +55,16 @@ public class chess{
             Scanner scan = new Scanner(System.in);
 
             if (turn == 1){
+                for (int i = 0; i < 8; i++){
+                    for (int j = 0; j < 9; j++){
+                        System.out.print(board[i][j] + " ");
+                    }
+                    System.out.println("");
+                }
+                for (int k = 0; k < 8; k++){
+                    System.out.print(board[8][k] + "  ");
+                }
+                System.out.println(" ");
                 System.out.println(" ");
                 System.out.println("It is white's turn.");
                 System.out.println("Enter your current piece: ");
@@ -72,10 +73,20 @@ public class chess{
                 String nextPosition = scan.nextLine();
                 chosenMove[0] = currentPosition;
                 chosenMove[1] = nextPosition;
-                String[] pieces = assignPiece(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
-                Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board);
+                String[] pieces = assignUserMoveAsPieces(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
+                Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board, emptyBoard);
             }
             else{
+                for (int i = 0; i < 8; i++){
+                    for (int j = 0; j < 9; j++){
+                        System.out.print(board[i][j] + " ");
+                    }
+                    System.out.println("");
+                }
+                for (int k = 0; k < 8; k++){
+                    System.out.print(board[8][k] + "  ");
+                }
+                System.out.println(" ");
                 System.out.println(" ");
                 System.out.println("It is black's turn.");
                 System.out.println("Enter your current piece: ");
@@ -84,8 +95,8 @@ public class chess{
                 String nextPosition = scan.nextLine();
                 chosenMove[0] = currentPosition;
                 chosenMove[1] = nextPosition;
-                String[] pieces = assignPiece(chosenMove, board);
-                Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board);
+                String[] pieces = assignUserMoveAsPieces(chosenMove, board);
+                Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board, emptyBoard);
             }
 
             //movePieces(moves);
@@ -150,7 +161,7 @@ public class chess{
         return chosenMove;
     }
 
-    public static boolean checkMoveValidity (String[] moves, String[] pieces, char color, String[][] board){
+    public static boolean checkMoveValidity (String[] moves, String[] pieces, char color, String[][] board, String[][] emptyBoard){
         // variables
         // check if it is the same color as player
         System.out.println("color "+ pieces[0].charAt(0));
@@ -180,10 +191,12 @@ public class chess{
             }
             if (pieces[0].charAt(1) == 'P'){
                 System.out.println("It is a pawn that you are moving");
-                Boolean piecesMoveable = checkPawnMove(moves, board);
+                Boolean piecesMoveable = checkPawnMoveValidity(moves, board);
                 if (piecesMoveable){
-                    System.out.print("Paw is moveable and it is moving now");
-                    //movePieces(moves);
+                    Integer[] playerMovesAsIndex = new Integer[4];
+                    assignPlayerMoveAsIndex(moves, playerMovesAsIndex);
+                    System.out.println("Paw is moveable and it is moving now");
+                    movePieces(playerMovesAsIndex, board, emptyBoard);
                 }
             }
 
@@ -198,7 +211,7 @@ public class chess{
         return true;
     }
 
-    public static boolean checkPawnMove(String[] moves, String[][] board){
+    public static boolean checkPawnMoveValidity(String[] moves, String[][] board){
         System.out.println("Pawn move is checking");
         // check if they are in their original destination by checking the number
         char columnAlphabet = moves[0].charAt(0);  // contains the alphabet of the chosen move
@@ -241,13 +254,38 @@ public class chess{
         return false;
     }
 
+    public static void assignPlayerMoveAsIndex(String[] moves, Integer[] playerMovesAsIndex){
+        Integer indexOfFirstMove = (int) moves[0].charAt(0) - 97;
+        Integer indexOfSecondMove = (int) moves[1].charAt(0) - 97;
+        String column0AsString = String.valueOf(moves[0].charAt(1));
+        String column1AsString = String.valueOf(moves[1].charAt(1));
+        Integer firstMoveColumnIndex = rowIndexes.indexOf(column0AsString);
+        Integer SecondMoveColumnIndex = rowIndexes.indexOf(column1AsString);
+
+        playerMovesAsIndex[0] = firstMoveColumnIndex;
+        playerMovesAsIndex[1] = indexOfFirstMove;
+        playerMovesAsIndex[2] = SecondMoveColumnIndex;
+        playerMovesAsIndex[3] = indexOfSecondMove;
+    }
+
     public static void movePieces(Integer[] moves, String[][] board, String[][] emptyBoard){
+        // integer move array contains 4 elements that are the index positions of the move
+        // use the board to move the pieces
+        System.out.println("move pieces got called");
+        System.out.println(moves[0]);
+        System.out.println(moves[1]);
+        System.out.println(moves[2]);
+        System.out.println(moves[3]);
+        System.out.println(board[moves[0]][moves[1]]);
+        board[moves[2]][moves[3]] = board[moves[0]][moves[1]];
+        board[moves[0]][moves[1]] = emptyBoard[moves[0]][moves[1]];
+
         // get the position and move the one
         // need empty board, current board and move indexes
         System.out.println("pieces have been moved");
     }
 
-    public static String[] assignPiece(String[] move, String[][] board){
+    public static String[] assignUserMoveAsPieces(String[] move, String[][] board){
         rowIndexes.add("8");
         rowIndexes.add("7");
         rowIndexes.add("6");
@@ -293,4 +331,11 @@ public class chess{
     // if first and wants to jump two move, check if there are any pieces in the way
     // if yes, cannot move
     // else, move the piece there and use the smaple empty board index to look for the color
+
+    public static void promptErrorMessage(String errorName){
+        if (errorName == "WRONGCOLOR"){
+            System.out.println("You are choosing the pieces that is not yours");
+        }
+    }
 }
+
