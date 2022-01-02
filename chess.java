@@ -74,7 +74,7 @@ public class chess{
                 chosenMove[0] = currentPosition;
                 chosenMove[1] = nextPosition;
                 String[] pieces = assignUserMoveAsPieces(chosenMove, board); // String[0] contain piece that is moving String: piece or " " from next move
-                Boolean valid = checkMoveValidity(chosenMove, pieces, 'w', board, emptyBoard);
+                Boolean valid = checkMoveValidityandMove(chosenMove, pieces, 'w', board, emptyBoard);
             }
             else{
                 for (int i = 0; i < 8; i++){
@@ -96,7 +96,7 @@ public class chess{
                 chosenMove[0] = currentPosition;
                 chosenMove[1] = nextPosition;
                 String[] pieces = assignUserMoveAsPieces(chosenMove, board);
-                Boolean valid = checkMoveValidity(chosenMove, pieces, 'b', board, emptyBoard);
+                Boolean valid = checkMoveValidityandMove(chosenMove, pieces, 'b', board, emptyBoard);
             }
 
             //movePieces(moves);
@@ -161,7 +161,7 @@ public class chess{
         return chosenMove;
     }
 
-    public static boolean checkMoveValidity (String[] moves, String[] pieces, char color, String[][] board, String[][] emptyBoard){
+    public static boolean checkMoveValidityandMove (String[] moves, String[] pieces, char color, String[][] board, String[][] emptyBoard){
         // variables
         // check if it is the same color as player
         System.out.println("color "+ pieces[0].charAt(0));
