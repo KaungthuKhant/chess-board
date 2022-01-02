@@ -8,8 +8,8 @@ public class chess{
     // INSTEAD OF STRING, CHAR MIGHT SAVE ME SOME TROUBLE
     public static ArrayList<String> rowIndexes = new ArrayList<String>();
     public static ArrayList<String> ColumnIndexes = new ArrayList<String>();
+    
     public static void main(String[] args){
-
         // variables
         String winner = "";                     // store the color of winner, "" when game start
         String[] players = {"white", "black"}; // might not need this
