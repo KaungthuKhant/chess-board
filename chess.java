@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class chess{
-    // public String[][] board;
+    
 
     // INSTEAD OF STRING, CHAR MIGHT SAVE ME SOME TROUBLE
     public static ArrayList<String> rowIndexes = new ArrayList<String>();
