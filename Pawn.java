@@ -1,6 +1,6 @@
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
-public class Pawn {
+public class Pawn extends Piece{
     private char color; // w for white and b for black
     private boolean firstMove;
     private int xPosition;
