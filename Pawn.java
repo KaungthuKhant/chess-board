@@ -15,6 +15,7 @@ public class Pawn extends Piece{
 
     // checkAndMove the pawn piece
     public void checkAndMove(int x, int y){
+        System.out.println("checkAndMove from Pawn is called");
         boolean moveable = false;
         // white
         if (this.color == 'w'){
@@ -26,9 +27,15 @@ public class Pawn extends Piece{
         }
         
         if (moveable){
+            System.out.println("The piece is moveable");
             this.xPosition = x;
             this.yPosition = y;
         }
+    }
+
+    public int[] getPosition(){
+        int[] position = {this.xPosition, this.yPosition};
+        return position;
     }
 
     public boolean checkIfWhiteMoveIsValid(int x, int y){
