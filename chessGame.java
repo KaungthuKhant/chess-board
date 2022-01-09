@@ -8,6 +8,7 @@ public class chessGame {
     public static ArrayList<Character> columnIndexes = new ArrayList<Character>();
 
     public static Pawn p1 = new Pawn('w', 0, 6);
+    public static Pawn p2 = new Pawn('w', 1, 6);
     
     public static void main(String[] args){
         char winner = 'n';
