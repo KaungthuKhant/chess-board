@@ -10,6 +10,7 @@ public class chessGame {
     public static Pawn p1 = new Pawn('w', 0, 6);
     public static Pawn p2 = new Pawn('w', 1, 6);
     public static Pawn p3 = new Pawn('w', 2, 6);
+    public static Pawn p4 = new Pawn('w', 2, 6);
     
     public static void main(String[] args){
         char winner = 'n';
