@@ -7,6 +7,7 @@ public class chessGame {
     public static ArrayList<Character> rowIndexes = new ArrayList<Character>();
     public static ArrayList<Character> columnIndexes = new ArrayList<Character>();
 
+    // Maybe the structure could change
     public static Pawn p1 = new Pawn('w', 0, 6);
     public static Pawn p2 = new Pawn('w', 1, 6);
     public static Pawn p3 = new Pawn('w', 2, 6);
